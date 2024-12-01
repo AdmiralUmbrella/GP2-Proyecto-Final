@@ -10,10 +10,11 @@ public class PlayerStateManager : MonoBehaviour
     private CharacterController characterController;
     private Camera playerCamera;
     private PlayerBaseState currentState;
-    private PlayerInput playerInput;
+    
 
     // Variables de cámara
     private float verticalRotation = 0f;
+    private float bobTimer = 0f;
 
     // Variables de movimiento
     private Vector3 playerVelocity;
@@ -21,12 +22,12 @@ public class PlayerStateManager : MonoBehaviour
     //Estados
     public PlayerIdleState IdleState { get; private set; }
     public PlayerSprintState SprintState { get; private set; }
+    public PlayerMoveState MoveState { get; private set; }
 
     private void Awake()
     {
         // Obtener referencias
         characterController = GetComponent<CharacterController>();
-        playerInput = GetComponent<PlayerInput>();
 
         if (playerData.cameraTransform != null)
         {
@@ -47,9 +48,16 @@ public class PlayerStateManager : MonoBehaviour
         // Inicializar estados
         IdleState = new PlayerIdleState(this, playerData);
         SprintState = new PlayerSprintState(this, playerData);
+        MoveState = new PlayerMoveState(this, playerData);
 
         // Estado inicial
         ChangeState(IdleState);
+
+        // Guardar la posición original de la cámara
+        if (playerData.cameraTransform != null)
+        {
+            playerData.originalCameraPosition = playerData.cameraTransform.localPosition;
+        }
     }
 
     #region UPDATES
@@ -59,8 +67,15 @@ public class PlayerStateManager : MonoBehaviour
         CheckInputTypeChange();
 
         UpdateGroundCheck();
-        UpdateMovement();
+
+        // Primero actualizamos la rotación
         UpdateRotation();
+
+        // Luego el headbob
+        UpdateHeadBob();
+
+        // Finalmente el movimiento
+        UpdateMovement();
 
         // Actualizar el estado actual
         currentState?.Update();
@@ -130,8 +145,78 @@ public class PlayerStateManager : MonoBehaviour
 
         if (playerCamera != null)
         {
+            // Guardar la posición actual antes de modificar la rotación
+            Vector3 currentPos = playerData.cameraTransform.localPosition;
+
+            // Aplicar la rotación
             playerData.cameraTransform.localRotation =
                 Quaternion.Euler(verticalRotation, 0f, 0f);
+
+            // Restaurar la posición
+            playerData.cameraTransform.localPosition = currentPos;
+
+#if UNITY_EDITOR
+            // Debug para monitorear la posición de la cámara
+            Debug.Log($"Camera Position after rotation: {currentPos}");
+#endif
+        }
+    }
+
+    private void UpdateHeadBob()
+    {
+        if (!playerData.isGrounded || !playerData.canMove) return;
+
+        Vector3 targetPos = playerData.originalCameraPosition;
+
+        // Si el jugador está en movimiento
+        if (playerData.moveDirection.magnitude > 0.1f)
+        {
+            // Incrementar el timer basado en la velocidad
+            float bobSpeed = playerData.isSprinting ?
+                playerData.bobFrequency * playerData.sprintBobMultiplier :
+                playerData.bobFrequency;
+
+            bobTimer += Time.deltaTime * bobSpeed;
+
+            // Calcular el desplazamiento vertical
+            float amplitude = playerData.isSprinting ?
+                playerData.bobAmplitude * playerData.sprintBobMultiplier :
+                playerData.bobAmplitude;
+
+            float yOffset = Mathf.Sin(bobTimer) * amplitude;
+
+            // También podemos añadir un ligero movimiento horizontal
+            float xOffset = Mathf.Cos(bobTimer / 2f) * amplitude * 0.5f;
+
+            // Aplicar los offsets
+            targetPos += new Vector3(xOffset, yOffset, 0f);
+        }
+        else
+        {
+            // Resetear el timer cuando estamos quietos
+            bobTimer = 0f;
+        }
+
+        // Suavizar la transición a la posición objetivo
+        playerData.cameraTransform.localPosition = Vector3.Lerp(
+            playerData.cameraTransform.localPosition,
+            targetPos,
+            Time.deltaTime * 12f
+        );
+    }
+
+    public void RegenerateStamina()
+    {
+        if (playerData.timeUntilStaminaRegen > 0)
+        {
+            playerData.timeUntilStaminaRegen -= Time.deltaTime;
+            return;
+        }
+
+        if (playerData.currentStamina < playerData.maxStamina)
+        {
+            playerData.currentStamina += playerData.staminaRegenRate * Time.deltaTime;
+            playerData.currentStamina = Mathf.Min(playerData.currentStamina, playerData.maxStamina);
         }
     }
     #endregion
@@ -158,7 +243,7 @@ public class PlayerStateManager : MonoBehaviour
         if (context.started)
         {
             playerData.isSprinting = true;
-            if (IsMoving())
+            if (currentState == MoveState && playerData.canSprint && playerData.currentStamina > 0)
             {
                 ChangeState(SprintState);
             }
@@ -166,7 +251,10 @@ public class PlayerStateManager : MonoBehaviour
         else if (context.canceled)
         {
             playerData.isSprinting = false;
-            ChangeState(IdleState);
+            if (currentState == SprintState)
+            {
+                ChangeState(MoveState);
+            }
         }
     }
     #endregion

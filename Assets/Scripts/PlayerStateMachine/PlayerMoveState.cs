@@ -9,16 +9,32 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void Enter()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public override void Exit()
-    {
-        throw new System.NotImplementedException();
+        playerData.currentSpeed = playerData.walkSpeed;
+        playerData.isSprinting = false;
+        Debug.Log("Entering Move State");
     }
 
     public override void Update()
     {
-        throw new System.NotImplementedException();
+        manager.RegenerateStamina();
+
+        // Verificar si debemos volver a Idle
+        if (!manager.IsMoving())
+        {
+            manager.ChangeState(manager.IdleState);
+            return;
+        }
+
+        // Verificar si debemos cambiar a Sprint
+        if (playerData.isSprinting && playerData.canSprint && playerData.currentStamina > 0)
+        {
+            manager.ChangeState(manager.SprintState);
+            return;
+        }
+    }
+
+    public override void Exit()
+    {
+        Debug.Log("Exiting Move State");
     }
 }
