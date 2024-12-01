@@ -20,6 +20,12 @@ public class PlayerData
     public bool canSprint = true;              // Flag para controlar si puede correr
     public float timeUntilStaminaRegen = 0f;  // Contador para la regeneración
 
+    [Header("Head Bob Settings")]
+    public float bobFrequency = 2.0f;       // Frecuencia del movimiento
+    public float bobAmplitude = 0.02f;      // Altura del movimiento
+    public float sprintBobMultiplier = 1.5f; // Multiplicador para sprint
+    public Vector3 originalCameraPosition;   // Posición original de la cámara
+
     [Header("Input Settings")]
     public float mouseBaseSensitivity = 0.5f;    // Sensibilidad base para mouse
     public float gamepadBaseSensitivity = 2.5f;  // Sensibilidad base para gamepad
