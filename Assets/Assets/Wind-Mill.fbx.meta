@@ -3,7 +3,12 @@ guid: 6c89542e7e69b7840bcbc1eea0f6db22
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wind-Mill
+    second: {fileID: 2100000, guid: cec3c129f63f0b84a909187b652170c4, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
