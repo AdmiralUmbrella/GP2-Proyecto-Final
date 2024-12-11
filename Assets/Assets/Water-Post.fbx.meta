@@ -3,7 +3,12 @@ guid: cbe6c600f057f53428ff1f6feb3436c1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Water-Post
+    second: {fileID: 2100000, guid: 6812e4827a1dda549a0e89a9e7f5c07c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -3,7 +3,12 @@ guid: 6d6eafce19ff63b49a454b521f8f7d78
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tractor_Destroyed
+    second: {fileID: 2100000, guid: b80ec20286f392e40ab7fbf69460675e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
