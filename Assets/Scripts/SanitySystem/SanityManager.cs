@@ -7,7 +7,7 @@ public class SanityManager : MonoBehaviour
 {
     [Header("Sanity Settings")]
     [SerializeField] private float maxSanity = 100f;
-    [SerializeField] private float currentSanity;
+    public float currentSanity;
     [SerializeField] private float baseDecayRate = 1f;  // Pérdida base de cordura por segundo
     [SerializeField] private DayNightCycle dayNightCycle = new DayNightCycle();
 

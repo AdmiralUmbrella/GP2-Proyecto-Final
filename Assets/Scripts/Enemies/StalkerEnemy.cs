@@ -19,12 +19,15 @@ public class StalkerEnemy : MonoBehaviour
     private bool isInPlayerView;
     private Vector3 lastKnownPlayerPosition;
 
+    public SanityManager sanityManager;
+
     private void Start()
     {
         // Obtener referencias necesarias
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         playerCamera = Camera.main;
         lastKnownPlayerPosition = transform.position;
+        gameObject.SetActive(false);
 
         // Verificar referencias
         if (playerTransform == null || playerCamera == null)
@@ -37,6 +40,7 @@ public class StalkerEnemy : MonoBehaviour
 
     private void Update()
     {
+        gameObject.SetActive(true);
         // Actualizar estado de visibilidad
         isInPlayerView = IsVisibleToPlayer();
 
@@ -122,4 +126,12 @@ public class StalkerEnemy : MonoBehaviour
 
     // Método público para consultar el estado de visibilidad
     public bool IsVisible() => isInPlayerView;
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Application.Quit();
+        }
+    }
 }
