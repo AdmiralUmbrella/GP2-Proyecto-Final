@@ -15,5 +15,5 @@ MonoBehaviour:
   toolName: Watering can
   toolType: 2
   toolPrefab: {fileID: 370476732836567754, guid: 81202429ff73a634686ad2742f845348, type: 3}
-  toolIcon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  toolIcon: {fileID: 21300000, guid: ec94b9a10f0796a43b765a8471f5dd71, type: 3}
   toolDescription: 
