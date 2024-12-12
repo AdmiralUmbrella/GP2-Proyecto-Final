@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerStateManager : MonoBehaviour
 {
+    public GameObject pauseMenu;
+    public bool pause = false;
+
     [SerializeField] private PlayerData playerData;
 
     // Referencias de componentes
@@ -257,6 +260,21 @@ public class PlayerStateManager : MonoBehaviour
             }
         }
     }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            if (pause == false)
+            {
+                ShowPause();
+            }
+            else if(pause == true)
+            {
+                HidePause();
+            }
+        }
+    }
     #endregion
 
     #region Métodos de Estado
@@ -274,6 +292,20 @@ public class PlayerStateManager : MonoBehaviour
     public float GetStaminaPercentage()
     {
         return playerData.currentStamina / playerData.maxStamina;
+    }
+
+    public void ShowPause()
+    {
+        pauseMenu.SetActive(true);
+        pause = true;
+        Time.timeScale = 0f;
+    }
+
+    public void HidePause()
+    {
+        pauseMenu.SetActive(false);
+        pause = false;
+        Time.timeScale = 1f;
     }
     #endregion
 
