@@ -15,5 +15,5 @@ MonoBehaviour:
   toolName: Shovel
   toolType: 1
   toolPrefab: {fileID: 676317602261651582, guid: 4d4232e95bb479e4c80490befe2e9a87, type: 3}
-  toolIcon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  toolIcon: {fileID: 21300000, guid: 0149ad05ebf233744949c334d2e76e44, type: 3}
   toolDescription: 
