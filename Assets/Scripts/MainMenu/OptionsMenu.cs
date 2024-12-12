@@ -6,27 +6,32 @@ using System.Collections.Generic;
 public class OptionsMenu : MonoBehaviour
 {
     [Header("UI Elements")]
-    public Slider volumeSlider;
-    public Dropdown resolutionDropdown;
+    public Slider volumeSlider;           // Referencia al Slider de Volumen
+    public Dropdown resolutionDropdown;   // Referencia al Dropdown de Resolución
 
     [Header("Audio Settings")]
-    public AudioMixer audioMixer;
+    public AudioMixer audioMixer;         // Referencia al Audio Mixer
 
-    private Resolution[] resolutions;
+    private Resolution[] resolutions;     // Array para almacenar las resoluciones disponibles
 
     void Start()
     {
         // Configurar el Slider de Volumen
         if (volumeSlider != null)
         {
+            Debug.Log("Configuring Volume Slider...");
             volumeSlider.onValueChanged.AddListener(SetVolume);
-            // Cargar el volumen guardado o por defecto
             volumeSlider.value = PlayerPrefs.GetFloat("Volume", 0.75f);
+        }
+        else
+        {
+            Debug.LogWarning("VolumeSlider no está asignado en el Inspector.");
         }
 
         // Configurar el Dropdown de Resolución
         if (resolutionDropdown != null)
         {
+            Debug.Log("Configuring Resolution Dropdown...");
             resolutions = Screen.resolutions;
             resolutionDropdown.ClearOptions();
 
@@ -48,6 +53,16 @@ public class OptionsMenu : MonoBehaviour
             resolutionDropdown.value = PlayerPrefs.GetInt("ResolutionIndex", currentResolutionIndex);
             resolutionDropdown.RefreshShownValue();
             resolutionDropdown.onValueChanged.AddListener(SetResolution);
+
+            Debug.Log("Resolutions added to Dropdown:");
+            foreach (var option in options)
+            {
+                Debug.Log(option);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("ResolutionDropdown no está asignado en el Inspector.");
         }
 
         // Aplicar configuraciones guardadas
@@ -57,11 +72,18 @@ public class OptionsMenu : MonoBehaviour
     // Método para ajustar el volumen
     public void SetVolume(float volume)
     {
-        // Asumiendo que tienes un AudioMixer con un parámetro llamado "MasterVolume"
+        Debug.Log("SetVolume called with value: " + volume);
         if (audioMixer != null)
         {
-            audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
+            float dB = (volume > 0) ? Mathf.Log10(volume) * 20 : -80f;
+            audioMixer.SetFloat("MasterVolume", dB);
+            Debug.Log("Volume set to " + dB + " dB");
         }
+        else
+        {
+            Debug.LogWarning("AudioMixer no está asignado en el Inspector.");
+        }
+
         // Guardar la configuración
         PlayerPrefs.SetFloat("Volume", volume);
     }
@@ -69,18 +91,25 @@ public class OptionsMenu : MonoBehaviour
     // Método para ajustar la resolución
     public void SetResolution(int resolutionIndex)
     {
+        Debug.Log("SetResolution called with index: " + resolutionIndex);
         if (resolutions.Length > resolutionIndex)
         {
             Resolution resolution = resolutions[resolutionIndex];
             Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+            Debug.Log("Resolution set to: " + resolution.width + "x" + resolution.height);
             // Guardar la configuración
             PlayerPrefs.SetInt("ResolutionIndex", resolutionIndex);
         }
+        else
+        {
+            Debug.LogWarning("Índice de resolución fuera de rango.");
+        }
     }
 
-    // Método para aplicar configuraciones guardadas
+    // Método para aplicar configuraciones guardadas al iniciar el juego
     public void ApplySettings()
     {
+        Debug.Log("Applying saved settings...");
         // Aplicar volumen
         float savedVolume = PlayerPrefs.GetFloat("Volume", 0.75f);
         SetVolume(savedVolume);
@@ -90,8 +119,10 @@ public class OptionsMenu : MonoBehaviour
         SetResolution(savedResolutionIndex);
     }
 
+    // Guardar las preferencias al salir de la aplicación
     void OnApplicationQuit()
     {
+        Debug.Log("Saving PlayerPrefs...");
         PlayerPrefs.Save();
     }
 }
