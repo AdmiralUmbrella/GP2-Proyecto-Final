@@ -9,6 +9,7 @@ public class SanityManager : MonoBehaviour
     [SerializeField] private float maxSanity = 100f;
     [SerializeField] private float currentSanity;
     [SerializeField] private float baseDecayRate = 1f;  // Pérdida base de cordura por segundo
+    [SerializeField] private DayNightCycle dayNightCycle = new DayNightCycle();
 
     [Header("Threshold Settings")]
     [SerializeField] private List<SanityThreshold> sanityThresholds = new List<SanityThreshold>();
@@ -47,8 +48,11 @@ public class SanityManager : MonoBehaviour
 
     private void UpdateSanity()
     {
-        // Aplicar decay base
-        ModifySanity(-baseDecayRate * Time.deltaTime);
+        if (dayNightCycle.currentTimeInHours >= 19f)
+        {
+            // Aplicar decay base
+            ModifySanity(-baseDecayRate * Time.deltaTime);
+        }
     }
 
     public void ModifySanity(float amount)

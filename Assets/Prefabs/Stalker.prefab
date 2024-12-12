@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &676317602261651582
+--- !u!1 &7697305963131660890
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7783601389098278883}
-  - component: {fileID: 4726281073081057908}
-  - component: {fileID: 2173107600130668152}
-  - component: {fileID: 2512995082860171715}
-  - component: {fileID: 1199909370196894127}
-  m_Layer: 7
-  m_Name: Shovel_Variant_2
+  - component: {fileID: 707695349683303092}
+  - component: {fileID: 4552106858624278292}
+  - component: {fileID: 5172413478962894072}
+  - component: {fileID: 5791590177621752436}
+  m_Layer: 0
+  m_Name: Stalker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7783601389098278883
+--- !u!4 &707695349683303092
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 676317602261651582}
+  m_GameObject: {fileID: 7697305963131660890}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.3, y: 2.3, z: 2.3}
-  m_ConstrainProportionsScale: 1
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 35.31, y: 4.486266, z: 16.61}
+  m_LocalScale: {x: 38.21913, y: 49.475704, z: 49.475704}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
---- !u!33 &4726281073081057908
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4552106858624278292
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 676317602261651582}
-  m_Mesh: {fileID: -9059945960756952286, guid: 6a6ce9ee1e0ef3e40a38649f60826a12, type: 3}
---- !u!23 &2173107600130668152
+  m_GameObject: {fileID: 7697305963131660890}
+  m_Mesh: {fileID: -4492442135081276212, guid: 3c121b35ce68c1d4ab7b63c674eccd40, type: 3}
+--- !u!23 &5172413478962894072
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 676317602261651582}
+  m_GameObject: {fileID: 7697305963131660890}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -66,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4207529286347290002, guid: 6a6ce9ee1e0ef3e40a38649f60826a12, type: 3}
+  - {fileID: -3846018093981099296, guid: 3c121b35ce68c1d4ab7b63c674eccd40, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -88,37 +87,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2512995082860171715
+--- !u!114 &5791590177621752436
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 676317602261651582}
+  m_GameObject: {fileID: 7697305963131660890}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5285b7927e2989946b9d6c600be1b858, type: 3}
+  m_Script: {fileID: 11500000, guid: bcaab5b6c38c0fd409a1f28e8d1e0cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolData: {fileID: 11400000, guid: cf79de536fd0ecf4289ecf083dd61b7a, type: 2}
---- !u!65 &1199909370196894127
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 676317602261651582}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
+  moveSpeed: 3
+  minDistanceToPlayer: 2
+  playerDetectionAngle: 90
+  detectionRange: 15
+  obstacleLayer:
     serializedVersion: 2
     m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3980316, y: 0.18179865, z: 0.23671779}
-  m_Center: {x: 0.32235298, y: 0.0015517123, z: -0.0010007098}
+  showDebugRays: 1

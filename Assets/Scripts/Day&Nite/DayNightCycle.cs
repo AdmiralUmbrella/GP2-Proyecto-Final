@@ -17,7 +17,7 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] private Color nightAmbientColor = Color.black;
 
     // Variables privadas para el tracking del tiempo
-    private float currentTimeInHours;                          // La hora actual del día (0-24)
+    public float currentTimeInHours;                          // La hora actual del día (0-24)
     private float timeMultiplier;                              // Multiplicador calculado basado en dayLengthInMinutes
 
     // Propiedades públicas para otros sistemas
