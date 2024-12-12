@@ -1276,6 +1276,7 @@ MonoBehaviour:
   minSunIntensity: 0
   dayAmbientColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   nightAmbientColor: {r: 0, g: 0, b: 0, a: 1}
+  currentTimeInHours: 0
 --- !u!4 &330243306
 Transform:
   m_ObjectHideFlags: 0
@@ -1454,9 +1455,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 519075938}
+      - m_Target: {fileID: 519075939}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1995,6 +1996,7 @@ GameObject:
   - component: {fileID: 519075935}
   - component: {fileID: 519075934}
   - component: {fileID: 519075938}
+  - component: {fileID: 519075939}
   m_Layer: 5
   m_Name: 'Main menu '
   m_TagString: Untagged
@@ -2099,6 +2101,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 359a27fd6f97b0c40864baa0067c6464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &519075939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519075933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9375b56860a99d242a5f8a8bd5725300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &522877698
@@ -7779,9 +7793,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 519075938}
+      - m_Target: {fileID: 519075939}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
