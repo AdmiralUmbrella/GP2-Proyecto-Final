@@ -4913,13 +4913,13 @@ AudioSource:
   m_GameObject: {fileID: 1539619745}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 297db8cf42b31184db18d031d75d4621, type: 2}
   m_audioClip: {fileID: 8300000, guid: e22d49ed9eee6704b951d5a102f69aa6, type: 3}
   m_Resource: {fileID: 8300000, guid: e22d49ed9eee6704b951d5a102f69aa6, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.403
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
